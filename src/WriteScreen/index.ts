@@ -1,0 +1,1 @@
+export { WriteScreen } from './component';

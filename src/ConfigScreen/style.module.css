@@ -1,0 +1,62 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.number {
+  aspect-ratio: 1;
+  font-size: 28px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.number[aria-pressed='true'] {
+  background: #222;
+  color: #fff;
+}
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.mode {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 2px solid currentColor;
+  border-radius: 16px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mode:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mode svg {
+  width: 50%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+

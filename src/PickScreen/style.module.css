@@ -1,0 +1,90 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+
+
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.content p {
+  margin: 0;
+}
+
+.progress {
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.equation {
+  font-size: clamp(40px, 15vw, 64px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.option {
+  aspect-ratio: 1;
+  font-size: 36px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 16px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option[data-state='correct'] {
+  border-color: #16a34a;
+  background: #16a34a;
+  color: #fff;
+}
+
+.option[data-state='wrong'] {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.option:disabled[data-state='idle'] {
+  opacity: 0.3;
+}
+
+.done {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.finish {
+  padding: 12px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}

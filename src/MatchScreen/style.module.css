@@ -1,0 +1,149 @@
+.screen {
+  --cell: 52px;
+  --font: 16px;
+  --gap: 10px;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16px 16px 0;
+}
+
+/* Two tables (20 equations + 20 tiles) need smaller cells to fit one phone screen */
+.screen[data-compact='true'] {
+  --cell: 40px;
+  --font: 15px;
+  --gap: 6px;
+}
+
+.level {
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.board {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.equations {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Slot under the equation keeps four columns within a phone width */
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font);
+}
+
+.equation {
+  white-space: nowrap;
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  width: var(--cell);
+  height: var(--cell);
+  border: 2px dashed currentColor;
+  border-radius: 10px;
+}
+
+.slot[data-over='true'],
+.pool[data-over='true'] {
+  background: #eee;
+}
+
+.slot[data-state='correct'] {
+  border: 2px solid #16a34a;
+  box-shadow: 0 0 0 2px #16a34a;
+}
+
+.slot[data-state='wrong'] {
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 0 2px #dc2626;
+}
+
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
+  gap: var(--gap);
+  min-height: var(--cell);
+  padding: 8px 2px;
+  border-top: 2px dashed currentColor;
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--cell) - 4px);
+  height: calc(var(--cell) - 4px);
+  font-size: calc(var(--font) - 2px);
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  background: #fff;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.tile[data-selected='true'],
+.slot[data-selected='true'] {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.tile[data-dragging='true'] {
+  opacity: 0.3;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0 16px;
+  background: #fff;
+}
+
+.score {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.check {
+  padding: 12px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.check:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

@@ -1,0 +1,84 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.content p {
+  margin: 0;
+}
+
+.progress {
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.equation {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  font-size: clamp(32px, 11vw, 56px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.field {
+  width: 2.2em;
+  padding: 0.05em 0;
+  font: inherit;
+  text-align: center;
+  border: 3px solid currentColor;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+}
+
+.field[data-state='correct'] {
+  border-color: #16a34a;
+  background: #16a34a;
+  color: #fff;
+}
+
+.field[data-state='wrong'] {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.solution {
+  color: #16a34a;
+}
+
+.done {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.button {
+  padding: 12px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
