@@ -1,7 +1,8 @@
 .screen {
-  --cell: 52px;
-  --font: 16px;
-  --gap: 10px;
+  /* Same tile size as the number buttons on the config screen: 5 per row */
+  --gap: 12px;
+  --tile: calc((min(100vw, 480px) - 32px - 4 * var(--gap)) / 5);
+  --slot: calc(var(--tile) + 4px);
 
   display: flex;
   flex-direction: column;
@@ -9,13 +10,6 @@
   min-height: 100dvh;
   margin: 0 auto;
   padding: 16px 16px 0;
-}
-
-/* Two tables (20 equations + 20 tiles) need smaller cells to fit one phone screen */
-.screen[data-compact='true'] {
-  --cell: 40px;
-  --font: 15px;
-  --gap: 6px;
 }
 
 .level {
@@ -46,8 +40,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  font-size: var(--font);
+  gap: 6px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .equation {
@@ -57,49 +52,56 @@
 .slot {
   display: grid;
   place-items: center;
-  width: var(--cell);
-  height: var(--cell);
-  border: 2px dashed currentColor;
-  border-radius: 10px;
+  width: var(--slot);
+  height: var(--slot);
+  border: 2px dashed var(--color-primary-strong);
+  border-radius: 14px;
+  background: var(--color-surface);
 }
 
 .slot[data-over='true'],
 .pool[data-over='true'] {
-  background: #eee;
+  background: var(--color-lavender);
 }
 
-.slot[data-state='correct'] {
-  border: 2px solid #16a34a;
-  box-shadow: 0 0 0 2px #16a34a;
+/* After checking, the tile inside the slot takes the result colours */
+.slot[data-state='correct'],
+.slot[data-state='correct'] .tile {
+  border-color: var(--color-sage);
+  background: var(--color-sage);
+  color: var(--color-correct-text);
 }
 
-.slot[data-state='wrong'] {
-  border: 2px solid #dc2626;
-  box-shadow: 0 0 0 2px #dc2626;
+.slot[data-state='wrong'],
+.slot[data-state='wrong'] .tile {
+  border-color: var(--color-peach);
+  background: var(--color-peach);
+  color: var(--color-wrong-text);
 }
 
 .pool {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, var(--tile));
   justify-content: center;
   align-content: start;
   gap: var(--gap);
-  min-height: var(--cell);
-  padding: 8px 2px;
-  border-top: 2px dashed currentColor;
+  min-height: var(--tile);
+  padding: 12px 0;
+  border-top: 2px dashed var(--color-line);
 }
 
 .tile {
   position: relative;
   display: grid;
   place-items: center;
-  width: calc(var(--cell) - 4px);
-  height: calc(var(--cell) - 4px);
-  font-size: calc(var(--font) - 2px);
+  width: var(--tile);
+  height: var(--tile);
+  font-size: 26px;
   font-weight: 600;
-  border: 2px solid currentColor;
-  border-radius: 8px;
-  background: #fff;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-yellow);
+  color: var(--color-on-yellow);
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -107,7 +109,7 @@
 
 .tile[data-selected='true'],
 .slot[data-selected='true'] {
-  outline: 3px solid #2563eb;
+  outline: 3px solid var(--color-primary-strong);
   outline-offset: 2px;
 }
 
@@ -123,7 +125,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 0 16px;
-  background: #fff;
+  background: var(--color-bg);
 }
 
 .score {
@@ -136,14 +138,44 @@
   padding: 12px 40px;
   font-size: 20px;
   font-weight: 600;
-  border: 2px solid currentColor;
+  border: none;
   border-radius: 12px;
-  background: none;
-  color: inherit;
+  background: var(--color-primary-strong);
+  color: var(--color-surface);
   cursor: pointer;
 }
 
 .check:disabled {
-  opacity: 0.3;
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
   cursor: not-allowed;
+}
+
+/*
+ * Tablet / desktop: use the width (5 equation columns, 10 tile columns) and size tiles so
+ * the whole board fits the screen height. Worst case is 4 equation rows + 2 tile rows,
+ * i.e. 6 tile heights plus ~448px of header, labels, gaps and footer.
+ */
+@media (min-width: 768px) {
+  .screen {
+    /* 44px floor keeps tiles tappable on very short screens (they scroll instead) */
+    --tile: max(
+      44px,
+      min(
+        calc((min(100vw, 960px) - 32px - 9 * var(--gap)) / 10),
+        calc((100dvh - 448px) / 6),
+        88px
+      )
+    );
+
+    max-width: 960px;
+  }
+
+  .equations {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .pool {
+    grid-template-columns: repeat(10, var(--tile));
+  }
 }

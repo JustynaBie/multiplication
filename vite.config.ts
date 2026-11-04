@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      // Icons + head links are generated from public/logo.svg (see pwa-assets.config.ts)
+      // Icons + head links are generated from public/logo.png (see pwa-assets.config.ts)
       pwaAssets: {
         config: true,
       },
@@ -16,8 +16,8 @@ export default defineConfig({
         short_name: 'Mnożenie',
         description: 'Nauka tabliczki mnożenia',
         lang: 'pl',
-        theme_color: '#4f46e5',
-        background_color: '#ffffff',
+        theme_color: '#a9c7e8',
+        background_color: '#f7f8f6',
         display: 'standalone',
         orientation: 'portrait',
       },

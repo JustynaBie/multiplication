@@ -142,7 +142,6 @@ export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProp
   const poolTiles = useMemo(() => getPoolTiles(tiles, placements), [tiles, placements]);
   const activeTile = activeTileId ? tileById.get(activeTileId) : undefined;
   const selectedId = selection?.id;
-  const isCompact = numbers.length > 1;
   const isChecked = status === 'checked';
   const isCheckDisabled = rows.some(row => !row.tile);
   const correctCount = rows.filter(row => row.state === 'correct').length;
@@ -155,7 +154,6 @@ export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProp
     poolTiles,
     activeTile,
     selectedId,
-    isCompact,
     isChecked,
     isCheckDisabled,
     isNextLevelAvailable,

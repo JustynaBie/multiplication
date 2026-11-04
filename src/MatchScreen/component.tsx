@@ -13,7 +13,6 @@ export const MatchScreen = (props: IMatchScreenProps) => {
     poolTiles,
     activeTile,
     selectedId,
-    isCompact,
     isChecked,
     isCheckDisabled,
     isNextLevelAvailable,
@@ -34,7 +33,7 @@ export const MatchScreen = (props: IMatchScreenProps) => {
       onDragEnd={endDrag}
       onDragCancel={cancelDrag}
     >
-      <main className={styles.screen} data-compact={isCompact}>
+      <main className={styles.screen}>
         <GameHeader numbers={props.numbers} onExit={props.onExit}>
           {props.level && <span className={styles.level}>{`Poziom ${props.level}`}</span>}
         </GameHeader>
@@ -89,7 +88,7 @@ export const MatchScreen = (props: IMatchScreenProps) => {
             )}
         </footer>
 
-        {/* Inside main so the overlay tile inherits the compact size variables */}
+        {/* Inside main so the overlay tile inherits the size variables */}
         <DragOverlay>
           {activeTile && <div className={styles.tile}>{activeTile.value}</div>}
         </DragOverlay>

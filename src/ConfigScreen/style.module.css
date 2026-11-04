@@ -1,8 +1,10 @@
 .screen {
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  max-width: 480px;
+  justify-content: center;
+  gap: 80px;
+  max-width: 560px;
+  min-height: 100dvh;
   margin: 0 auto;
   padding: 32px 16px;
 }
@@ -15,39 +17,44 @@
 
 .number {
   aspect-ratio: 1;
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 600;
-  border: 2px solid currentColor;
+  border: 2px solid var(--color-primary-strong);
   border-radius: 12px;
-  background: none;
-  color: inherit;
+  background: var(--color-surface);
+  color: var(--color-primary-text);
   cursor: pointer;
 }
 
 .number[aria-pressed='true'] {
-  background: #222;
-  color: #fff;
+  background: var(--color-primary-strong);
+  color: var(--color-surface);
 }
 
+/* Narrower than the numbers (560px screen) so only the number buttons grew */
 .modes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  width: 100%;
+  max-width: 448px;
+  align-self: center;
 }
 
 .mode {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
-  border: 2px solid currentColor;
+  border: none;
   border-radius: 16px;
-  background: none;
-  color: inherit;
+  background: var(--color-yellow);
+  color: var(--color-on-yellow);
   cursor: pointer;
 }
 
 .mode:disabled {
-  opacity: 0.3;
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 

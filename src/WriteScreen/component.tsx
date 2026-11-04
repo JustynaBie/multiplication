@@ -47,10 +47,12 @@ export const WriteScreen = (props: IWriteScreenProps) => {
                 maxLength={3}
                 autoComplete="off"
                 autoFocus
+                placeholder="?"
                 aria-label="Wynik"
               />
               {isWrong && <span className={styles.solution}>{question.equation.result}</span>}
             </div>
+            {isWrong && <p className={styles.hint}>Spróbuj jeszcze raz!</p>}
             <button type="submit" className={styles.button} disabled={isCheckDisabled}>
               Sprawdź
             </button>

@@ -1,3 +1,32 @@
+/* Palette */
+:root {
+  --color-primary: #a9c7e8;
+  --color-yellow: #f4dfa0;
+  --color-bg: #f7f8f6;
+  --color-surface: #ffffff;
+  --color-sage: #dce8de;
+  --color-lavender: #e1deee;
+  --color-peach: #f0d9d3;
+  --color-navy: #2f3b4d;
+
+  /* Button styles */
+  --color-primary-strong: #7f9fc4;
+  --color-primary-text: #6b8ab0;
+  --color-on-yellow: #6b5a2e;
+  --color-disabled-bg: #eaedf1;
+  --color-disabled-text: #a9aeb8;
+  --color-correct-text: #4a604e;
+  --color-wrong-text: #8c5a50;
+  --color-line: #c9cfd8;
+
+  /* Input styles */
+  --color-input-border: #e1e4ea;
+  --color-success-bg: #f1f6f0;
+  --color-success-border: #8db394;
+  --color-error-bg: #fbf1ef;
+  --color-error-border: #d4a59b;
+}
+
 *,
 *::before,
 *::after {
@@ -7,4 +36,6 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
+  color: var(--color-navy);
+  background: var(--color-bg);
 }
