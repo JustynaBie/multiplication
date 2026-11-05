@@ -11,9 +11,14 @@ export default defineConfig({
       pwaAssets: {
         config: true,
       },
+      // Cat animations are precached too, so the celebration also works offline
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,png,svg,ico,webp}'],
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+      },
       manifest: {
-        name: 'Tabliczka mnożenia',
-        short_name: 'Mnożenie',
+        name: 'Multiply',
+        short_name: 'Multiply',
         description: 'Nauka tabliczki mnożenia',
         lang: 'pl',
         theme_color: '#a9c7e8',

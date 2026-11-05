@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import type { GameMode } from '../game';
+import { useTranslation } from '../i18n';
 import { toggleNumber } from './helpers';
 import type { IConfigScreenProps } from './types';
 
@@ -8,6 +9,7 @@ import type { IConfigScreenProps } from './types';
 const MAX_MATCH_NUMBERS = 2;
 
 export const useConfigScreen = ({ onStart }: IConfigScreenProps) => {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<number[]>([]);
 
   const toggle = useCallback(
@@ -26,5 +28,6 @@ export const useConfigScreen = ({ onStart }: IConfigScreenProps) => {
     start,
     isStartDisabled,
     isMatchDisabled,
+    t,
   };
 };

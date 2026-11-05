@@ -1,3 +1,4 @@
+import { Celebration } from '../Celebration';
 import { GameHeader } from '../GameHeader';
 import { usePickScreen } from './controller';
 import styles from './style.module.css';
@@ -11,6 +12,7 @@ export const PickScreen = (props: IPickScreenProps) => {
     isRevealing,
     progress,
     pick,
+    t,
   } = usePickScreen(props);
 
   return (
@@ -18,15 +20,7 @@ export const PickScreen = (props: IPickScreenProps) => {
       <GameHeader numbers={props.numbers} onExit={props.onExit} />
 
       {isDone
-        ? (
-          <section className={styles.content}>
-            <p className={styles.done}>Brawo!</p>
-            <p>Wszystkie działania zrobione</p>
-            <button type="button" className={styles.finish} onClick={props.onExit}>
-              Koniec
-            </button>
-          </section>
-        )
+        ? <Celebration actionLabel={t.finish} onAction={props.onExit} />
         : (
           <section className={styles.content}>
             <p className={styles.progress}>{progress}</p>

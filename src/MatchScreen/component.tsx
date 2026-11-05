@@ -1,5 +1,6 @@
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 
+import { Celebration } from '../Celebration';
 import { GameHeader } from '../GameHeader';
 import { POOL_ID, useMatchScreen } from './controller';
 import { DropArea, Tile } from './dnd';
@@ -15,7 +16,9 @@ export const MatchScreen = (props: IMatchScreenProps) => {
     selectedId,
     isChecked,
     isCheckDisabled,
-    isNextLevelAvailable,
+    isAllCorrect,
+    celebrationLabel,
+    footerAction,
     correctCount,
     startDrag,
     endDrag,
@@ -23,7 +26,8 @@ export const MatchScreen = (props: IMatchScreenProps) => {
     tapTile,
     tapSlot,
     tapPool,
-    check,
+    boardSize,
+    t,
   } = useMatchScreen(props);
 
   return (
@@ -33,60 +37,69 @@ export const MatchScreen = (props: IMatchScreenProps) => {
       onDragEnd={endDrag}
       onDragCancel={cancelDrag}
     >
-      <main className={styles.screen}>
+      <main className={styles.screen} style={boardSize}>
         <GameHeader numbers={props.numbers} onExit={props.onExit}>
-          {props.level && <span className={styles.level}>{`Poziom ${props.level}`}</span>}
+          {props.level && <span className={styles.level}>{t.level(props.level)}</span>}
         </GameHeader>
 
-        <div className={styles.board}>
-          <ul className={styles.equations}>
-            {rows.map(({ equation, tile, state }) => (
-              <li key={equation.id} className={styles.row}>
-                <span className={styles.equation}>{`${equation.left} × ${equation.right}`}</span>
-                <DropArea
-                  id={equation.id}
-                  className={styles.slot}
-                  state={state}
-                  isSelected={selectedId === equation.id}
-                  onTap={tapSlot}
-                >
-                  {tile && <Tile tile={tile} isSelected={selectedId === tile.id} onTap={tapTile} />}
+        {isAllCorrect
+          ? (
+            <Celebration
+              actionLabel={celebrationLabel}
+              onAction={props.onNextLevel ?? props.onExit}
+            />
+          )
+          : (
+            <div className={styles.game}>
+              <div className={styles.board}>
+                <ul className={styles.equations}>
+                  {rows.map(({ equation, tile, state }) => (
+                    <li key={equation.id} className={styles.row}>
+                      <span className={styles.equation}>
+                        {`${equation.left} × ${equation.right}`}
+                      </span>
+                      <DropArea
+                        id={equation.id}
+                        className={styles.slot}
+                        state={state}
+                        isSelected={selectedId === equation.id}
+                        onTap={tapSlot}
+                      >
+                        {tile && (
+                          <Tile tile={tile} isSelected={selectedId === tile.id} onTap={tapTile} />
+                        )}
+                      </DropArea>
+                    </li>
+                  ))}
+                </ul>
+
+                <DropArea id={POOL_ID} className={styles.pool} onTap={tapPool}>
+                  {poolTiles.map(tile => (
+                    <Tile
+                      key={tile.id}
+                      tile={tile}
+                      isSelected={selectedId === tile.id}
+                      onTap={tapTile}
+                    />
+                  ))}
                 </DropArea>
-              </li>
-            ))}
-          </ul>
+              </div>
 
-          <DropArea id={POOL_ID} className={styles.pool} onTap={tapPool}>
-            {poolTiles.map(tile => (
-              <Tile
-                key={tile.id}
-                tile={tile}
-                isSelected={selectedId === tile.id}
-                onTap={tapTile}
-              />
-            ))}
-          </DropArea>
-        </div>
-
-        <footer className={styles.footer}>
-          {isChecked && <p className={styles.score}>{`Dobrze: ${correctCount} / ${rows.length}`}</p>}
-          {isNextLevelAvailable
-            ? (
-              <button type="button" className={styles.check} onClick={props.onNextLevel}>
-                Dalej →
-              </button>
-            )
-            : (
-              <button
-                type="button"
-                className={styles.check}
-                disabled={isCheckDisabled}
-                onClick={check}
-              >
-                Sprawdź
-              </button>
-            )}
-        </footer>
+              <footer className={styles.footer}>
+                {isChecked && (
+                  <p className={styles.score}>{t.score(correctCount, rows.length)}</p>
+                )}
+                <button
+                  type="button"
+                  className={styles.check}
+                  disabled={isCheckDisabled}
+                  onClick={footerAction.run}
+                >
+                  {footerAction.label}
+                </button>
+              </footer>
+            </div>
+          )}
 
         {/* Inside main so the overlay tile inherits the size variables */}
         <DragOverlay>

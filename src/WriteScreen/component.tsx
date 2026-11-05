@@ -1,3 +1,4 @@
+import { Celebration } from '../Celebration';
 import { GameHeader } from '../GameHeader';
 import { useWriteScreen } from './controller';
 import styles from './style.module.css';
@@ -15,6 +16,7 @@ export const WriteScreen = (props: IWriteScreenProps) => {
     progress,
     change,
     check,
+    t,
   } = useWriteScreen(props);
 
   return (
@@ -22,15 +24,7 @@ export const WriteScreen = (props: IWriteScreenProps) => {
       <GameHeader numbers={props.numbers} onExit={props.onExit} />
 
       {isDone
-        ? (
-          <section className={styles.content}>
-            <p className={styles.done}>Brawo!</p>
-            <p>Wszystkie działania zrobione</p>
-            <button type="button" className={styles.button} onClick={props.onExit}>
-              Koniec
-            </button>
-          </section>
-        )
+        ? <Celebration actionLabel={t.finish} onAction={props.onExit} />
         : (
           <form className={styles.content} onSubmit={check}>
             <p className={styles.progress}>{progress}</p>
@@ -48,13 +42,13 @@ export const WriteScreen = (props: IWriteScreenProps) => {
                 autoComplete="off"
                 autoFocus
                 placeholder="?"
-                aria-label="Wynik"
+                aria-label={t.result}
               />
               {isWrong && <span className={styles.solution}>{question.equation.result}</span>}
             </div>
-            {isWrong && <p className={styles.hint}>Spróbuj jeszcze raz!</p>}
+            {isWrong && <p className={styles.hint}>{t.tryAgain}</p>}
             <button type="submit" className={styles.button} disabled={isCheckDisabled}>
-              Sprawdź
+              {t.check}
             </button>
           </form>
         )}

@@ -1,0 +1,55 @@
+/* Pinned to the screen corner, clear of the phone notch */
+.picker {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 10;
+}
+
+.current {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+  border: 2px solid var(--color-input-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 2px 8px rgb(47 59 77 / 8%);
+  cursor: pointer;
+}
+
+.current[aria-expanded='true'] {
+  border-color: var(--color-primary-strong);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(47 59 77 / 16%);
+}
+
+.option {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 56px;
+  font-size: 32px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background: var(--color-disabled-bg);
+  cursor: pointer;
+}
+
+.option[aria-pressed='true'] {
+  border-color: var(--color-primary-strong);
+  background: var(--color-primary-soft);
+}

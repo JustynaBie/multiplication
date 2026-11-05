@@ -82,11 +82,6 @@
   color: var(--color-correct-text);
 }
 
-.done {
-  font-size: 48px;
-  font-weight: 700;
-}
-
 .button {
   margin-top: 24px;
   padding: 12px 40px;

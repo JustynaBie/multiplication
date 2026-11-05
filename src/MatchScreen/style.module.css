@@ -1,7 +1,27 @@
+/*
+ * Tile size: the largest that fits both the width and the height of the screen.
+ * --eq-count / --pool-count come from the component; rows follow from the column count,
+ * so the board always fits without scrolling (down to a 32px floor).
+ */
 .screen {
-  /* Same tile size as the number buttons on the config screen: 5 per row */
-  --gap: 12px;
-  --tile: calc((min(100vw, 480px) - 32px - 4 * var(--gap)) / 5);
+  --gap: 8px;
+  --eq-cols: 4;
+  --pool-cols: 5;
+  --eq-rows: round(up, var(--eq-count) / var(--eq-cols), 1);
+  --pool-rows: round(up, var(--pool-count) / var(--pool-cols), 1);
+
+  /* Header, paddings and footer, plus the label above each slot */
+  --chrome: 200px;
+  --label: 35px;
+
+  --fit-width: calc((min(100vw, 480px) - 32px - 4 * var(--gap)) / 5);
+  --fit-height: calc(
+    (
+      100dvh - var(--chrome) - var(--eq-rows) * var(--label)
+      - (var(--eq-rows) + var(--pool-rows) - 2) * var(--gap)
+    ) / (var(--eq-rows) + var(--pool-rows))
+  );
+  --tile: max(32px, min(var(--fit-width), var(--fit-height)));
   --slot: calc(var(--tile) + 4px);
 
   display: flex;
@@ -18,17 +38,23 @@
   font-weight: 600;
 }
 
+.game {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .board {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 0;
+  gap: 12px;
+  padding: 12px 0;
 }
 
 .equations {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(var(--eq-cols), 1fr);
   gap: var(--gap);
   margin: 0;
   padding: 0;
@@ -40,9 +66,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-size: 22px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .equation {
@@ -81,12 +108,12 @@
 
 .pool {
   display: grid;
-  grid-template-columns: repeat(5, var(--tile));
+  grid-template-columns: repeat(var(--pool-cols), var(--tile));
   justify-content: center;
   align-content: start;
   gap: var(--gap);
   min-height: var(--tile);
-  padding: 12px 0;
+  padding: 8px 0;
   border-top: 2px dashed var(--color-line);
 }
 
@@ -96,7 +123,7 @@
   place-items: center;
   width: var(--tile);
   height: var(--tile);
-  font-size: 26px;
+  font-size: min(26px, var(--tile) * 0.55);
   font-weight: 600;
   border: none;
   border-radius: 12px;
@@ -117,14 +144,15 @@
   opacity: 0.3;
 }
 
+/* Score sits beside the button, so checking doesn't push the board up */
 .footer {
   position: sticky;
   bottom: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 12px 0 16px;
+  justify-content: center;
+  gap: 16px;
+  padding: 8px 0 12px;
   background: var(--color-bg);
 }
 
@@ -135,7 +163,7 @@
 }
 
 .check {
-  padding: 12px 40px;
+  padding: 12px 32px;
   font-size: 20px;
   font-weight: 600;
   border: none;
@@ -151,31 +179,97 @@
   cursor: not-allowed;
 }
 
-/*
- * Tablet / desktop: use the width (5 equation columns, 10 tile columns) and size tiles so
- * the whole board fits the screen height. Worst case is 4 equation rows + 2 tile rows,
- * i.e. 6 tile heights plus ~448px of header, labels, gaps and footer.
- */
+/* Tablet / desktop: use the width with 5 equation columns and 10 tile columns */
 @media (min-width: 768px) {
   .screen {
-    /* 44px floor keeps tiles tappable on very short screens (they scroll instead) */
-    --tile: max(
-      44px,
-      min(
-        calc((min(100vw, 960px) - 32px - 9 * var(--gap)) / 10),
-        calc((100dvh - 448px) / 6),
-        88px
-      )
-    );
+    --gap: 12px;
+    --eq-cols: 5;
+    --pool-cols: 10;
+    --fit-width: calc((min(100vw, 960px) - 32px - 9 * var(--gap)) / 10);
+    --tile: max(32px, min(var(--fit-width), var(--fit-height), 88px));
 
     max-width: 960px;
   }
+}
+
+/*
+ * Phone held sideways (also wider than 768px, so it overrides the tablet rules):
+ * equations on the left with the slot beside each label, tiles and button on the right.
+ */
+@media (orientation: landscape) and (max-height: 500px) {
+  .screen {
+    --gap: 8px;
+    --eq-cols: 4;
+    --pool-cols: 5;
+    --label-width: 58px;
+
+    /* Height left under the header; the footer takes 56px of the right column */
+    --board-height: calc(100dvh - 90px);
+    --fit-eq: calc(
+      (var(--board-height) - (var(--eq-rows) - 1) * var(--gap)) / var(--eq-rows) - 4px
+    );
+    --fit-pool: calc(
+      (var(--board-height) - 56px - (var(--pool-rows) - 1) * var(--gap)) / var(--pool-rows)
+    );
+    --fit-width: calc(
+      (
+        100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)
+        - 4 * (var(--label-width) + 10px) - 32px - 7 * var(--gap)
+      ) / 9
+    );
+    --tile: max(32px, min(var(--fit-eq), var(--fit-pool), var(--fit-width), 56px));
+
+    max-width: none;
+    padding: 12px max(16px, env(safe-area-inset-right)) 12px
+      max(16px, env(safe-area-inset-left));
+  }
+
+  .game {
+    display: grid;
+    grid-template-areas:
+      'equations pool'
+      'equations footer';
+    grid-template-rows: 1fr auto;
+    justify-content: center;
+    column-gap: 32px;
+    padding-top: 12px;
+  }
+
+  .board {
+    display: contents;
+  }
 
   .equations {
-    grid-template-columns: repeat(5, 1fr);
+    grid-area: equations;
+    grid-template-columns: repeat(var(--eq-cols), auto);
+    align-content: center;
+  }
+
+  .row {
+    flex-direction: row;
+    gap: 6px;
+    font-size: 18px;
+  }
+
+  .equation {
+    width: var(--label-width);
+    text-align: right;
   }
 
   .pool {
-    grid-template-columns: repeat(10, var(--tile));
+    grid-area: pool;
+    align-content: center;
+    padding: 0;
+    border-top: none;
+  }
+
+  .footer {
+    grid-area: footer;
+    position: static;
+    padding: 8px 0 0;
+  }
+
+  .check {
+    padding: 10px 28px;
   }
 }

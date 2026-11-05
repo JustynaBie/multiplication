@@ -67,3 +67,25 @@
   stroke-linejoin: round;
 }
 
+
+/* Phone held sideways: all ten numbers in one row and smaller tiles, so the modes fit too */
+@media (orientation: landscape) and (max-height: 500px) {
+  .screen {
+    gap: 32px;
+    max-width: 760px;
+    padding: 16px 88px;
+  }
+
+  .numbers {
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+  }
+
+  .number {
+    font-size: 24px;
+  }
+
+  .modes {
+    max-width: min(320px, 30dvh * 3);
+  }
+}

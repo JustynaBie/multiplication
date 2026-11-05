@@ -5,11 +5,13 @@ import {
   type FormEvent,
 } from 'react';
 
+import { useTranslation } from '../i18n';
 import { useQuiz } from '../quiz';
 import { createQuestion, getFieldState, keepDigits } from './helpers';
 import type { IWriteScreenProps } from './types';
 
 export const useWriteScreen = ({ numbers }: IWriteScreenProps) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState('');
 
   const {
@@ -55,5 +57,6 @@ export const useWriteScreen = ({ numbers }: IWriteScreenProps) => {
     progress,
     change,
     check,
+    t,
   };
 };

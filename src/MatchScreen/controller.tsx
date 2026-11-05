@@ -11,8 +11,10 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
 } from 'react';
 
+import { useTranslation } from '../i18n';
 import { animateTiles, measureTiles, type TileRects } from './flight';
 import { createDecoys } from '../tables';
 import {
@@ -46,7 +48,13 @@ const createBoard = (numbers: number[], level: Level | undefined) => {
   return { equations, tiles };
 };
 
-export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProps) => {
+export const useMatchScreen = ({
+  numbers,
+  level,
+  onExit,
+  onNextLevel,
+}: IMatchScreenProps) => {
+  const { t } = useTranslation();
   const [{ equations, tiles }] = useState(() => createBoard(numbers, level));
   const [placements, setPlacements] = useState<Placements>({});
   const [status, setStatus] = useState<MatchStatus>('playing');
@@ -146,7 +154,19 @@ export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProp
   const isCheckDisabled = rows.some(row => !row.tile);
   const correctCount = rows.filter(row => row.state === 'correct').length;
   const isAllCorrect = correctCount === rows.length;
-  const isNextLevelAvailable = Boolean(onNextLevel) && isAllCorrect;
+  // Mistakes offer a way back to the start; moving any tile switches back to checking
+  const isFailed = isChecked && !isAllCorrect;
+  const footerAction = isFailed
+    ? { label: t.backToStart, run: onExit }
+    : { label: t.check, run: check };
+  // Counts drive the CSS tile size, so the whole board fits on screen
+  const boardSize = {
+    '--eq-count': equations.length,
+    '--pool-count': tiles.length,
+  } as CSSProperties;
+  const celebrationLabel = onNextLevel
+    ? t.next
+    : t.finish;
 
   return {
     sensors,
@@ -156,7 +176,9 @@ export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProp
     selectedId,
     isChecked,
     isCheckDisabled,
-    isNextLevelAvailable,
+    isAllCorrect,
+    celebrationLabel,
+    footerAction,
     correctCount,
     startDrag,
     endDrag,
@@ -164,6 +186,7 @@ export const useMatchScreen = ({ numbers, level, onNextLevel }: IMatchScreenProp
     tapTile,
     tapSlot,
     tapPool,
-    check,
+    boardSize,
+    t,
   };
 };

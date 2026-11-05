@@ -1,4 +1,5 @@
 import { GAME_MODES } from '../game';
+import { LanguagePicker } from '../LanguagePicker';
 import { useConfigScreen } from './controller';
 import { ArrowsIcon, ClickIcon, PencilIcon } from './icons';
 import styles from './style.module.css';
@@ -13,10 +14,13 @@ export const ConfigScreen = (props: IConfigScreenProps) => {
     start,
     isStartDisabled,
     isMatchDisabled,
+    t,
   } = useConfigScreen(props);
 
   return (
     <main className={styles.screen}>
+      <LanguagePicker />
+
       <div className={styles.numbers}>
         {NUMBERS.map(number => (
           <button
@@ -35,7 +39,7 @@ export const ConfigScreen = (props: IConfigScreenProps) => {
         <button
           type="button"
           className={styles.mode}
-          aria-label="Łączenie działań z wynikami"
+          aria-label={t.matchMode}
           disabled={isMatchDisabled}
           onClick={() => start(GAME_MODES.match)}
         >
@@ -45,7 +49,7 @@ export const ConfigScreen = (props: IConfigScreenProps) => {
         <button
           type="button"
           className={styles.mode}
-          aria-label="Wybieranie dobrej odpowiedzi"
+          aria-label={t.pickMode}
           disabled={isStartDisabled}
           onClick={() => start(GAME_MODES.pick)}
         >
@@ -55,7 +59,7 @@ export const ConfigScreen = (props: IConfigScreenProps) => {
         <button
           type="button"
           className={styles.mode}
-          aria-label="Wpisywanie wyników"
+          aria-label={t.writeMode}
           disabled={isStartDisabled}
           onClick={() => start(GAME_MODES.write)}
         >

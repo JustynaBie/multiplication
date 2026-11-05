@@ -1,8 +1,10 @@
+import { useTranslation } from '../i18n';
 import { useQuiz } from '../quiz';
 import { createQuestion, getOptionState } from './helpers';
 import type { IPickScreenProps } from './types';
 
 export const usePickScreen = ({ numbers }: IPickScreenProps) => {
+  const { t } = useTranslation();
   const {
     question,
     answer,
@@ -23,5 +25,6 @@ export const usePickScreen = ({ numbers }: IPickScreenProps) => {
     isRevealing,
     progress,
     pick: submit,
+    t,
   };
 };
