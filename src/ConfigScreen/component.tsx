@@ -1,7 +1,8 @@
 import { GAME_MODES } from '../game';
 import { LanguagePicker } from '../LanguagePicker';
+import { ModeButton } from '../ModeButton';
 import { useConfigScreen } from './controller';
-import { ArrowsIcon, ClickIcon, PencilIcon } from './icons';
+import { MatchIcon, PickIcon, WriteIcon } from './icons';
 import styles from './style.module.css';
 import type { IConfigScreenProps } from './types';
 
@@ -21,50 +22,43 @@ export const ConfigScreen = (props: IConfigScreenProps) => {
     <main className={styles.screen}>
       <LanguagePicker />
 
-      <div className={styles.numbers}>
-        {NUMBERS.map(number => (
-          <button
-            key={number}
-            type="button"
-            className={styles.number}
-            aria-pressed={selected.includes(number)}
-            onClick={() => toggle(number)}
-          >
-            {number}
-          </button>
-        ))}
-      </div>
+      <section className={styles.choose}>
+        <h1 className={styles.title}>{t.chooseTitle}</h1>
+        <p className={styles.hint}>{t.chooseHint}</p>
+        <div className={styles.numbers}>
+          {NUMBERS.map(number => (
+            <button
+              key={number}
+              type="button"
+              className={styles.number}
+              aria-pressed={selected.includes(number)}
+              onClick={() => toggle(number)}
+            >
+              {number}
+            </button>
+          ))}
+        </div>
+      </section>
 
       <div className={styles.modes}>
-        <button
-          type="button"
-          className={styles.mode}
-          aria-label={t.matchMode}
-          disabled={isMatchDisabled}
-          onClick={() => start(GAME_MODES.match)}
-        >
-          <ArrowsIcon />
-        </button>
-
-        <button
-          type="button"
-          className={styles.mode}
-          aria-label={t.pickMode}
-          disabled={isStartDisabled}
-          onClick={() => start(GAME_MODES.pick)}
-        >
-          <ClickIcon />
-        </button>
-
-        <button
-          type="button"
-          className={styles.mode}
-          aria-label={t.writeMode}
-          disabled={isStartDisabled}
-          onClick={() => start(GAME_MODES.write)}
-        >
-          <PencilIcon />
-        </button>
+        <ModeButton
+          label={t.matchMode}
+          icon={<MatchIcon />}
+          isDisabled={isMatchDisabled}
+          onStart={() => start(GAME_MODES.match)}
+        />
+        <ModeButton
+          label={t.pickMode}
+          icon={<PickIcon />}
+          isDisabled={isStartDisabled}
+          onStart={() => start(GAME_MODES.pick)}
+        />
+        <ModeButton
+          label={t.writeMode}
+          icon={<WriteIcon />}
+          isDisabled={isStartDisabled}
+          onStart={() => start(GAME_MODES.write)}
+        />
       </div>
     </main>
   );

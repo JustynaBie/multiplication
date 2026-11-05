@@ -22,17 +22,12 @@
   margin: 0;
 }
 
-.progress {
-  font-size: 18px;
-  opacity: 0.6;
-}
-
 .equation {
   display: flex;
   align-items: center;
   gap: 0.25em;
-  font-size: clamp(32px, 11vw, 56px);
-  font-weight: 700;
+  font-size: clamp(28px, 9.5vw, 56px);
+  font-weight: 800;
   white-space: nowrap;
 }
 
@@ -73,13 +68,19 @@
   color: var(--color-wrong-text);
 }
 
-.hint {
-  font-size: 18px;
-  color: var(--color-wrong-text);
+/*
+ * Space for the correct answer is always reserved (3 digits wide), so revealing it
+ * shifts nothing; it only becomes visible after a wrong answer.
+ */
+.solution {
+  min-width: 1.9em;
+  text-align: left;
+  color: var(--color-correct-text);
+  visibility: hidden;
 }
 
-.solution {
-  color: var(--color-correct-text);
+.solution[data-visible='true'] {
+  visibility: visible;
 }
 
 .button {
@@ -98,4 +99,24 @@
   background: var(--color-disabled-bg);
   color: var(--color-disabled-text);
   cursor: not-allowed;
+}
+
+/* Phone held sideways: progress, equation and button share the low screen */
+@media (orientation: landscape) and (max-height: 500px) {
+  .screen {
+    padding: 12px 16px;
+  }
+
+  .content {
+    gap: 10px;
+  }
+
+  .equation {
+    font-size: 40px;
+  }
+
+  .button {
+    margin-top: 4px;
+    padding: 10px 32px;
+  }
 }

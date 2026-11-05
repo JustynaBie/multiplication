@@ -36,7 +36,7 @@ export const useQuiz = <TQuestion extends IQuizQuestion>(
   const isDone = queue.length === 0;
   const isRevealing = answer.type === 'revealing';
   const isCorrect = isRevealing && answer.picked === question.equation.result;
-  const progress = `${total - queue.length} / ${total}`;
+  const solved = total - queue.length;
 
   // Solved question leaves the queue; a failed one goes to the back, re-created fresh
   const advance = useCallback(() => {
@@ -63,7 +63,8 @@ export const useQuiz = <TQuestion extends IQuizQuestion>(
     isDone,
     isRevealing,
     isCorrect,
-    progress,
+    solved,
+    total,
     submit,
   };
 };

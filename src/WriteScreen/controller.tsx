@@ -19,7 +19,8 @@ export const useWriteScreen = ({ numbers }: IWriteScreenProps) => {
     answer,
     isDone,
     isRevealing,
-    progress,
+    solved,
+    total,
     submit,
   } = useQuiz(numbers, createQuestion);
 
@@ -54,7 +55,8 @@ export const useWriteScreen = ({ numbers }: IWriteScreenProps) => {
     isRevealing,
     isWrong,
     isCheckDisabled,
-    progress,
+    solved,
+    total,
     change,
     check,
     t,

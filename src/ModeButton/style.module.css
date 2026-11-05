@@ -1,0 +1,58 @@
+.wrapper {
+  position: relative;
+}
+
+.mode {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 16px;
+  background: var(--color-yellow);
+  color: var(--color-on-yellow);
+  cursor: pointer;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.mode[aria-disabled='true'] {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.mode svg {
+  width: 38%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Small label above the tile, pointing down at it */
+.hint {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 5;
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 10px;
+  background: var(--color-navy);
+  color: var(--color-surface);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hint::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: var(--color-navy);
+  content: '';
+  transform: translateX(-50%);
+}

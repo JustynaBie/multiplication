@@ -35,7 +35,7 @@
 .level {
   margin-left: auto;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .game {
@@ -68,7 +68,7 @@
   align-items: center;
   gap: 4px;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.2;
 }
 
@@ -124,7 +124,7 @@
   width: var(--tile);
   height: var(--tile);
   font-size: min(26px, var(--tile) * 0.55);
-  font-weight: 600;
+  font-weight: 800;
   border: none;
   border-radius: 12px;
   background: var(--color-yellow);
@@ -159,7 +159,7 @@
 .score {
   margin: 0;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .check {

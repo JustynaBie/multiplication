@@ -9,6 +9,26 @@
   padding: 32px 16px;
 }
 
+/* Heading stays close to the numbers it describes */
+.choose {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.hint {
+  margin: 8px 0 24px;
+  font-size: 18px;
+  color: var(--color-primary-text);
+}
+
 .numbers {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -18,7 +38,7 @@
 .number {
   aspect-ratio: 1;
   font-size: 34px;
-  font-weight: 600;
+  font-weight: 800;
   border: 2px solid var(--color-primary-strong);
   border-radius: 12px;
   background: var(--color-surface);
@@ -41,39 +61,21 @@
   align-self: center;
 }
 
-.mode {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  border: none;
-  border-radius: 16px;
-  background: var(--color-yellow);
-  color: var(--color-on-yellow);
-  cursor: pointer;
-}
-
-.mode:disabled {
-  background: var(--color-disabled-bg);
-  color: var(--color-disabled-text);
-  cursor: not-allowed;
-}
-
-.mode svg {
-  width: 50%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-
 /* Phone held sideways: all ten numbers in one row and smaller tiles, so the modes fit too */
 @media (orientation: landscape) and (max-height: 500px) {
   .screen {
     gap: 32px;
     max-width: 760px;
     padding: 16px 88px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .hint {
+    margin: 4px 0 16px;
+    font-size: 16px;
   }
 
   .numbers {

@@ -1,5 +1,6 @@
 import { Celebration } from '../Celebration';
 import { GameHeader } from '../GameHeader';
+import { ProgressBar } from '../ProgressBar';
 import { useWriteScreen } from './controller';
 import styles from './style.module.css';
 import type { IWriteScreenProps } from './types';
@@ -13,7 +14,8 @@ export const WriteScreen = (props: IWriteScreenProps) => {
     isRevealing,
     isWrong,
     isCheckDisabled,
-    progress,
+    solved,
+    total,
     change,
     check,
     t,
@@ -22,12 +24,12 @@ export const WriteScreen = (props: IWriteScreenProps) => {
   return (
     <main className={styles.screen}>
       <GameHeader numbers={props.numbers} onExit={props.onExit} />
+      {!isDone && <ProgressBar solved={solved} total={total} />}
 
       {isDone
         ? <Celebration actionLabel={t.finish} onAction={props.onExit} />
         : (
           <form className={styles.content} onSubmit={check}>
-            <p className={styles.progress}>{progress}</p>
             <div className={styles.equation}>
               <span>{`${question.equation.left} × ${question.equation.right} =`}</span>
               {/* Read-only instead of disabled while revealing, so the phone keyboard stays open */}
@@ -44,9 +46,10 @@ export const WriteScreen = (props: IWriteScreenProps) => {
                 placeholder="?"
                 aria-label={t.result}
               />
-              {isWrong && <span className={styles.solution}>{question.equation.result}</span>}
+              <span className={styles.solution} data-visible={isWrong}>
+                {question.equation.result}
+              </span>
             </div>
-            {isWrong && <p className={styles.hint}>{t.tryAgain}</p>}
             <button type="submit" className={styles.button} disabled={isCheckDisabled}>
               {t.check}
             </button>

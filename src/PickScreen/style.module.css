@@ -25,14 +25,9 @@
   margin: 0;
 }
 
-.progress {
-  font-size: 18px;
-  opacity: 0.6;
-}
-
 .equation {
   font-size: clamp(40px, 15vw, 64px);
-  font-weight: 700;
+  font-weight: 800;
   white-space: nowrap;
 }
 
@@ -47,7 +42,7 @@
 .option {
   aspect-ratio: 1;
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 800;
   border: 2px solid var(--color-primary-strong);
   border-radius: 16px;
   background: var(--color-surface);

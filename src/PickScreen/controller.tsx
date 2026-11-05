@@ -10,7 +10,8 @@ export const usePickScreen = ({ numbers }: IPickScreenProps) => {
     answer,
     isDone,
     isRevealing,
-    progress,
+    solved,
+    total,
     submit,
   } = useQuiz(numbers, createQuestion);
 
@@ -23,7 +24,8 @@ export const usePickScreen = ({ numbers }: IPickScreenProps) => {
     options,
     isDone,
     isRevealing,
-    progress,
+    solved,
+    total,
     pick: submit,
     t,
   };

@@ -34,9 +34,17 @@
   box-sizing: border-box;
 }
 
+/* Nunito: 800 for digits, results and headings; 400 / 600 for the rest */
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'Nunito Variable', system-ui, sans-serif;
+  font-weight: 400;
   color: var(--color-navy);
   background: var(--color-bg);
+}
+
+/* Form controls don't inherit the page font by default */
+button,
+input {
+  font-family: inherit;
 }

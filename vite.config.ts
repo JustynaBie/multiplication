@@ -11,9 +11,9 @@ export default defineConfig({
       pwaAssets: {
         config: true,
       },
-      // Cat animations are precached too, so the celebration also works offline
+      // Cat animations and the font are precached too, so everything also works offline
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,ico,webp}'],
+        globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,woff2}'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
       },
       manifest: {

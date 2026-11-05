@@ -1,17 +1,20 @@
-export const ArrowsIcon = () => (
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <path d="M4 24h40M4 24l10-10M4 24l10 10M44 24 34 14M44 24 34 34" />
+// Two boxes joined by a line: pair each equation with its result
+export const MatchIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" strokeWidth="2">
+    <rect x="3" y="3" width="8" height="8" rx="2" />
+    <rect x="13" y="13" width="8" height="8" rx="2" />
+    <path d="M7 11v4a2 2 0 0 0 2 2h4" />
   </svg>
 );
 
-export const ClickIcon = () => (
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <path d="M20 18l20 8-8 3-3 8-9-19zM14 6v6M6 14h6M8 8l4 4M22 8l-3 4" />
+export const PickIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" strokeWidth="2">
+    <path d="M4.04 4.69a.5.5 0 0 1 .65-.65l16 6.5a.5.5 0 0 1-.06.95l-6.13 1.58a2 2 0 0 0-1.43 1.43l-1.58 6.13a.5.5 0 0 1-.95.06z" />
   </svg>
 );
 
-export const PencilIcon = () => (
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <path d="M32 6l10 10L16 42H6V32L32 6zM26 12l10 10" />
+export const WriteIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" strokeWidth="2">
+    <path d="M21.17 6.81a1 1 0 0 0-3.98-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5zM15 5l4 4" />
   </svg>
 );
