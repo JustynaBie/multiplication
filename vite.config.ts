@@ -14,6 +14,8 @@ export default defineConfig({
       // Cat animations and the font are precached too, so everything also works offline
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,woff2}'],
+        // logo.png is only the source for the generated icons, the app never loads it
+        globIgnores: ['logo.png'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
       },
       manifest: {

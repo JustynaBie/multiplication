@@ -2,6 +2,7 @@ export const LANGUAGES = {
   pl: 'pl',
   en: 'en',
   es: 'es',
+  fr: 'fr',
 } as const;
 
 export type Language = typeof LANGUAGES[keyof typeof LANGUAGES];
@@ -108,6 +109,29 @@ export const TRANSLATIONS: Record<Language, ITranslations> = {
     level: level => `Nivel ${level}`,
     score: (correct, total) => `Correctas: ${correct} / ${total}`,
   },
+  fr: {
+    languagePicker: 'Langue',
+    chooseTitle: 'Choisis les tables que tu veux réviser !',
+    chooseHint: 'Tu peux en choisir une ou plusieurs.',
+    matchMode: 'Relie',
+    pickMode: 'Choisis',
+    writeMode: 'Écris',
+    back: 'Retour',
+    backToStart: 'Retour au début',
+    check: 'Vérifier',
+    next: 'Suivant →',
+    finish: 'Terminer',
+    result: 'Résultat',
+    bravo: 'Bravo !',
+    allDone: 'Tu as tout réussi !',
+    catAlt: 'Chat joyeux',
+    progressTitle: 'Opérations maîtrisées',
+    progressLeft: count => count === 1
+      ? 'Plus qu’une opération à maîtriser !'
+      : `Plus que ${count} opérations à maîtriser !`,
+    level: level => `Niveau ${level}`,
+    score: (correct, total) => `Bonnes réponses : ${correct} / ${total}`,
+  },
 };
 
 // Each language is named in itself, so it's recognisable whichever one is active
@@ -115,10 +139,12 @@ export const LANGUAGE_NAMES: Record<Language, string> = {
   pl: 'Polski',
   en: 'English',
   es: 'Español',
+  fr: 'Français',
 };
 
 export const FLAGS: Record<Language, string> = {
   pl: '🇵🇱',
   en: '🇬🇧',
   es: '🇪🇸',
+  fr: '🇫🇷',
 };
