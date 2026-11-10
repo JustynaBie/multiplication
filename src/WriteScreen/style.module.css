@@ -132,17 +132,25 @@
 
 /*
  * Touch device held sideways: the keyboard leaves only a strip at the top,
- * so the button sits beside the equation instead of under it.
+ * so everything is packed tight at the top and the button sits beside the
+ * equation instead of under it. That keeps it all above the keyboard, so the
+ * page doesn't have to scroll when the keyboard opens.
  */
 @media (pointer: coarse) and (orientation: landscape) {
   .screen {
     max-width: 760px;
+    padding-top: 8px;
   }
 
   .content {
+    flex: none;
     flex-direction: row;
-    padding-top: 16px;
+    padding-top: 4px;
     gap: 24px;
+  }
+
+  .equation {
+    font-size: 44px;
   }
 }
 
