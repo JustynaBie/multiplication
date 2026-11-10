@@ -26,7 +26,7 @@ export default defineConfig({
         theme_color: '#a9c7e8',
         background_color: '#f7f8f6',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'any',
       },
     }),
   ],
