@@ -36,6 +36,8 @@ import type {
 export const POOL_ID = 'pool';
 
 const DECOY_COUNT = 5;
+// On wide screens a single table (up to 15 tiles) gets 5 big columns, more tables get 10
+const WIDE_POOL_LIMIT = 15;
 
 // Level 2 adds wrong answers to the pool
 const createBoard = (numbers: number[], level: Level | undefined) => {
@@ -163,6 +165,7 @@ export const useMatchScreen = ({
   const boardSize = {
     '--eq-count': equations.length,
     '--pool-count': tiles.length,
+    '--wide-pool-cols': tiles.length <= WIDE_POOL_LIMIT ? 5 : 10,
   } as CSSProperties;
   const celebrationLabel = onNextLevel
     ? t.next

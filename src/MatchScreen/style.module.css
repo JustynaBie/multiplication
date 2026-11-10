@@ -179,16 +179,31 @@
   cursor: not-allowed;
 }
 
-/* Tablet / desktop: use the width with 5 equation columns and 10 tile columns */
+/*
+ * Tablet / desktop: 5 equation columns; tiles in 5 columns for one table
+ * (bigger tiles) or 10 for several (--wide-pool-cols comes from the component).
+ * Labels and digits grow with the tiles.
+ */
 @media (min-width: 768px) {
   .screen {
     --gap: 12px;
     --eq-cols: 5;
-    --pool-cols: 10;
-    --fit-width: calc((min(100vw, 960px) - 32px - 9 * var(--gap)) / 10);
-    --tile: max(32px, min(var(--fit-width), var(--fit-height), 88px));
+    --pool-cols: var(--wide-pool-cols);
+    --label: 44px;
+    --fit-width: calc(
+      (min(100vw, 960px) - 32px - (var(--pool-cols) - 1) * var(--gap)) / var(--pool-cols)
+    );
+    --tile: max(32px, min(var(--fit-width), var(--fit-height), 120px));
 
     max-width: 960px;
+  }
+
+  .row {
+    font-size: 30px;
+  }
+
+  .tile {
+    font-size: min(44px, var(--tile) * 0.45);
   }
 }
 
