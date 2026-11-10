@@ -111,7 +111,7 @@
   (pointer: coarse) and (max-width: 500px) {
   .content {
     justify-content: flex-start;
-    padding-top: 24px;
+    padding-top: max(24px, 6dvh);
     gap: 20px;
   }
 
