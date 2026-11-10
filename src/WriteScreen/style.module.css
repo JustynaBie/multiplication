@@ -104,9 +104,11 @@
 /*
  * Touch devices: the on-screen keyboard covers the bottom half of the screen,
  * so the equation and the button sit right under the progress bar instead of
- * in the middle, where the keyboard would hide the button.
+ * in the middle, where the keyboard would hide the button. A tablet held
+ * upright is tall enough to keep the centred layout.
  */
-@media (pointer: coarse) {
+@media (pointer: coarse) and (orientation: landscape),
+  (pointer: coarse) and (max-width: 599px) {
   .content {
     justify-content: flex-start;
     padding-top: 24px;
