@@ -108,7 +108,7 @@
  * upright is tall enough to keep the centred layout.
  */
 @media (pointer: coarse) and (orientation: landscape),
-  (pointer: coarse) and (max-width: 599px) {
+  (pointer: coarse) and (max-width: 500px) {
   .content {
     justify-content: flex-start;
     padding-top: 24px;
@@ -124,7 +124,7 @@
  * Tablet held upright: still centred, but lifted a little (empty space at the
  * bottom) so the button clears the keyboard on smaller tablets too.
  */
-@media (pointer: coarse) and (orientation: portrait) and (min-width: 600px) {
+@media (pointer: coarse) and (orientation: portrait) and (min-width: 501px) {
   .content {
     padding-bottom: 22dvh;
   }
