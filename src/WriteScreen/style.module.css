@@ -118,6 +118,22 @@
   }
 }
 
+/*
+ * Touch device held sideways: the keyboard leaves only a strip at the top,
+ * so the button sits beside the equation instead of under it.
+ */
+@media (pointer: coarse) and (orientation: landscape) {
+  .screen {
+    max-width: 760px;
+  }
+
+  .content {
+    flex-direction: row;
+    padding-top: 16px;
+    gap: 24px;
+  }
+}
+
 /* Phone held sideways: progress, equation and button share the low screen */
 @media (orientation: landscape) and (max-height: 500px) {
   .screen {
