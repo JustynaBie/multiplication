@@ -101,6 +101,23 @@
   cursor: not-allowed;
 }
 
+/*
+ * Touch devices: the on-screen keyboard covers the bottom half of the screen,
+ * so the equation and the button sit right under the progress bar instead of
+ * in the middle, where the keyboard would hide the button.
+ */
+@media (pointer: coarse) {
+  .content {
+    justify-content: flex-start;
+    padding-top: 24px;
+    gap: 20px;
+  }
+
+  .button {
+    margin-top: 0;
+  }
+}
+
 /* Phone held sideways: progress, equation and button share the low screen */
 @media (orientation: landscape) and (max-height: 500px) {
   .screen {
